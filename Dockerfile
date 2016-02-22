@@ -1,4 +1,4 @@
-FROM ubuntu:latest
+FROM debian:latest
 
 MAINTAINER Joshua Delsman <j@srv.im>
 
