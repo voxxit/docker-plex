@@ -13,10 +13,14 @@ RUN  useradd --system --uid 1000 -M --shell /usr/sbin/nologin plex \
   && apt-get -y autoremove --purge \
   && rm -rf /var/lib/apt/lists/* plexmediaserver_${VERSION}_amd64.deb
 
-ENV PLEX_ULIMIT 3000
+ENV PLEX_USER plex
+ENV PLEX_MEDIA_SERVER_MAX_STACK_SIZE 10000
+ENV PLEX_MEDIA_SERVER_MAX_LOCK_MEM 3000
+ENV PLEX_MEDIA_SERVER_MAX_OPEN_FILES 4096
 ENV PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS 6
 ENV PLEX_MEDIA_SERVER_HOME /usr/lib/plexmediaserver
 ENV PLEX_MEDIA_SERVER_APPLICATION_SUPPORT_DIR /etc/plexmediaserver
+ENV PLEX_MEDIA_SERVER_TMPDIR /tmp
 ENV LD_LIBRARY_PATH ${PLEX_MEDIA_SERVER_HOME}
 
 COPY start.sh /start.sh
