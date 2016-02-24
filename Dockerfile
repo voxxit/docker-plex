@@ -4,7 +4,8 @@ MAINTAINER Joshua Delsman <j@srv.im>
 
 ENV VERSION 0.9.15.5.1712-ba5070a
 
-RUN  useradd --system --uid 1000 -M --shell /usr/sbin/nologin plex \
+RUN  groupadd --gid 1000 plex \
+  && useradd --system --uid 501 --gid 1000 -M --shell /usr/sbin/nologin plex \
   && apt-get update \
   && apt-get -y install wget \
   && wget https://downloads.plex.tv/plex-media-server/${VERSION}/plexmediaserver_${VERSION}_amd64.deb \
@@ -14,8 +15,6 @@ RUN  useradd --system --uid 1000 -M --shell /usr/sbin/nologin plex \
   && rm -rf /var/lib/apt/lists/* plexmediaserver_${VERSION}_amd64.deb
 
 ENV PLEX_USER plex
-ENV PLEX_MEDIA_SERVER_MAX_STACK_SIZE 10000
-ENV PLEX_MEDIA_SERVER_MAX_LOCK_MEM 3000
 ENV PLEX_MEDIA_SERVER_MAX_OPEN_FILES 4096
 ENV PLEX_MEDIA_SERVER_MAX_PLUGIN_PROCS 6
 ENV PLEX_MEDIA_SERVER_HOME /usr/lib/plexmediaserver
